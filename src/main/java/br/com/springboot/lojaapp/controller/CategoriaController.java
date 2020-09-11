@@ -14,7 +14,7 @@ public class CategoriaController {
 
     @GetMapping("listar")
     public List<Categoria> listar(){
-        return Arrays.asList(new Categoria("Informátoca", 1), new Categoria("Escritório", 2));
+        return Arrays.asList(new Categoria("Informática", 1), new Categoria("Escritório", 2));
     }
 
 }
