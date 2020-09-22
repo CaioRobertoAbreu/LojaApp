@@ -1,20 +1,24 @@
 package br.com.springboot.lojaapp.controller;
 
 import br.com.springboot.lojaapp.model.Categoria;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
-import java.util.List;
+import br.com.springboot.lojaapp.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @GetMapping("listar")
-    public List<Categoria> listar(){
-        return Arrays.asList(new Categoria("Informática", 1), new Categoria("Escritório", 2));
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> listar(@PathVariable Integer id){
+        Categoria categoria = categoriaService.buscar(id);
+
+        return ResponseEntity.ok().body(categoria);
+
     }
 
 }
