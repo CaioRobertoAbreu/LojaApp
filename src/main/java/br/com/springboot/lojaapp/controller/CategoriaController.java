@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -14,11 +16,17 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listar(@PathVariable Integer id){
-        Categoria categoria = categoriaService.buscar(id);
+    public ResponseEntity<?> listarPorId(@PathVariable Integer id){
+        Categoria categoria = categoriaService.buscarPorId(id);
 
         return ResponseEntity.ok().body(categoria);
+    }
 
+    @GetMapping()
+    public ResponseEntity<List<Categoria>> listarTodos(){
+        List<Categoria> categorias = categoriaService.buscarTodos();
+
+        return ResponseEntity.ok().body(categorias);
     }
 
 }
