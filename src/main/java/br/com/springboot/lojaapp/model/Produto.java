@@ -1,6 +1,5 @@
 package br.com.springboot.lojaapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -10,24 +9,31 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable {
+public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @ManyToMany(mappedBy = "categorias")
-    @JsonIgnore
-    private List<Produto> produtos = new ArrayList<>();
+    private Double preco;
 
-    public Categoria(String nome, Integer id) {
-        this.nome = nome;
+    @JsonManagedReference
+    @JoinTable(name = "produto_categoria",
+        joinColumns = @JoinColumn(name = "produto_id"),
+        inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @ManyToMany()
+    private List<Categoria> categorias = new ArrayList<>();
+
+
+    public Produto(Integer id, String nome, Double preco) {
         this.id = id;
+        this.nome = nome;
+        this.preco = preco;
     }
 
-    public Categoria() {
 
+    public Produto() {
     }
 
     public Integer getId() {
@@ -46,26 +52,32 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(getId(), categoria.getId()) &&
-                Objects.equals(getNome(), categoria.getNome());
+        Produto produto = (Produto) o;
+        return getId().equals(produto.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome());
+        return Objects.hash(getId());
     }
 }
-
