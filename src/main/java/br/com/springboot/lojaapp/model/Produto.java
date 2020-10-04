@@ -1,5 +1,6 @@
 package br.com.springboot.lojaapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
-    @JsonManagedReference
+    @JsonIgnore
     @JoinTable(name = "produto_categoria",
         joinColumns = @JoinColumn(name = "produto_id"),
         inverseJoinColumns = @JoinColumn(name = "categoria_id"))

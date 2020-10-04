@@ -4,7 +4,10 @@ import br.com.springboot.lojaapp.model.Categoria;
 import br.com.springboot.lojaapp.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,7 +21,6 @@ public class CategoriaController {
     @GetMapping("/{id}")
     public ResponseEntity<?> listarPorId(@PathVariable Integer id){
         Categoria categoria = categoriaService.buscarPorId(id);
-
         return ResponseEntity.ok().body(categoria);
     }
 
