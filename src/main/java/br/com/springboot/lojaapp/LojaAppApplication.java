@@ -1,17 +1,14 @@
 package br.com.springboot.lojaapp;
 
-import br.com.springboot.lojaapp.model.Categoria;
-import br.com.springboot.lojaapp.model.Cidade;
-import br.com.springboot.lojaapp.model.Estado;
-import br.com.springboot.lojaapp.model.Produto;
-import br.com.springboot.lojaapp.repository.CategoriaRepository;
-import br.com.springboot.lojaapp.repository.CidadeRepository;
-import br.com.springboot.lojaapp.repository.EstadoRepository;
-import br.com.springboot.lojaapp.repository.ProdutoRepository;
+import br.com.springboot.lojaapp.model.*;
+import br.com.springboot.lojaapp.model.enums.TipoCliente;
+import br.com.springboot.lojaapp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.HashSet;
 
 import static java.util.Arrays.asList;
 
@@ -26,6 +23,10 @@ public class LojaAppApplication implements CommandLineRunner {
     private CidadeRepository cidadeRepository;
     @Autowired
     private EstadoRepository estadoRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(LojaAppApplication.class, args);
@@ -64,6 +65,20 @@ public class LojaAppApplication implements CommandLineRunner {
         estadoRepository.saveAll(asList(estado1, estado2));
         cidadeRepository.saveAll(asList(cidade1, cidade2, cidade3));
 
+        Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678911",
+                TipoCliente.PESSOA_FISICA);
+        cliente1.getTelefones().addAll(asList("1354157199", "13654237624"));
+
+        Endereco endereco1 = new Endereco(null, "Rua Flores", 300, "apto 203",
+                "Jardim", "38220834", cliente1, cidade1);
+
+        Endereco endereco2 = new Endereco(null, "Av Matos", 105, "sala 800",
+                "Centro", "38220834", cliente1, cidade2);
+
+        cliente1.getEnderecos().addAll(asList(endereco1, endereco2));
+
+        clienteRepository.save(cliente1);
+        enderecoRepository.saveAll(asList(endereco1, endereco2));
 
 
     }
