@@ -1,6 +1,7 @@
 package br.com.springboot.lojaapp.model;
 
 import br.com.springboot.lojaapp.model.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Cliente implements Serializable {
     private String cpf_Cnpj;
     private Integer tipoCliente;
     @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "telefone")

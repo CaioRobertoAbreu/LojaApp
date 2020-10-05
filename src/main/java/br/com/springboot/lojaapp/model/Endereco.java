@@ -1,5 +1,8 @@
 package br.com.springboot.lojaapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,9 +21,11 @@ public class Endereco implements Serializable {
     private String cep;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "cidade_id")
+    @JsonManagedReference
     private Cidade cidade;
 
     public Endereco() {
