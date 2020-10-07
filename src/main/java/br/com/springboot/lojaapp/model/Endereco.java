@@ -25,7 +25,6 @@ public class Endereco implements Serializable {
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "cidade_id")
-    @JsonManagedReference
     private Cidade cidade;
 
     public Endereco() {

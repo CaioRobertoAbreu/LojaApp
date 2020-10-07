@@ -32,7 +32,7 @@ public enum TipoCliente {
             }
         }
 
-        throw new IllegalArgumentException("Não existe enumerador com este código");
+        throw new IllegalArgumentException("Não existe enumerador com este código" + cod);
     }
 
 }

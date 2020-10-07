@@ -1,6 +1,7 @@
 package br.com.springboot.lojaapp;
 
 import br.com.springboot.lojaapp.model.*;
+import br.com.springboot.lojaapp.model.enums.EstadoPagamento;
 import br.com.springboot.lojaapp.model.enums.TipoCliente;
 import br.com.springboot.lojaapp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 import static java.util.Arrays.asList;
@@ -27,6 +30,11 @@ public class LojaAppApplication implements CommandLineRunner {
     private ClienteRepository clienteRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(LojaAppApplication.class, args);
@@ -80,6 +88,20 @@ public class LojaAppApplication implements CommandLineRunner {
         clienteRepository.save(cliente1);
         enderecoRepository.saveAll(asList(endereco1, endereco2));
 
+        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), cliente1, endereco1);
+        Pedido pedido2 = new Pedido(null, LocalDateTime.now(), cliente1, endereco2);
+
+        Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
+        pedido1.setPagamento(pagamento1);
+
+        Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2,
+                LocalDate.now().plusDays(7), null);
+        pedido2.setPagamento(pagamento2);
+
+        cliente1.getPedidos().addAll(asList(pedido1, pedido2));
+
+        pedidoRepository.saveAll(asList(pedido1, pedido2));
+        pagamentoRepository.saveAll(asList(pagamento1, pagamento2));
 
     }
 }
