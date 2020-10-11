@@ -18,23 +18,32 @@ import static java.util.Arrays.asList;
 @SpringBootApplication
 public class LojaAppApplication implements CommandLineRunner {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-    @Autowired
-    private ProdutoRepository produtoRepository;
-    @Autowired
-    private CidadeRepository cidadeRepository;
-    @Autowired
-    private EstadoRepository estadoRepository;
-    @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-    @Autowired
-    private PedidoRepository pedidoRepository;
-    @Autowired
-    private PagamentoRepository pagamentoRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final ProdutoRepository produtoRepository;
+    private final CidadeRepository cidadeRepository;
+    private final EstadoRepository estadoRepository;
+    private final ClienteRepository clienteRepository;
+    private final EnderecoRepository enderecoRepository;
+    private final PedidoRepository pedidoRepository;
+    private final PagamentoRepository pagamentoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
+    public LojaAppApplication(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository,
+                              CidadeRepository cidadeRepository, EstadoRepository estadoRepository,
+                              ClienteRepository clienteRepository, EnderecoRepository enderecoRepository,
+                              PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository,
+                              ItemPedidoRepository itemPedidoRepository) {
+
+        this.categoriaRepository = categoriaRepository;
+        this.produtoRepository = produtoRepository;
+        this.cidadeRepository = cidadeRepository;
+        this.estadoRepository = estadoRepository;
+        this.clienteRepository = clienteRepository;
+        this.enderecoRepository = enderecoRepository;
+        this.pedidoRepository = pedidoRepository;
+        this.pagamentoRepository = pagamentoRepository;
+        this.itemPedidoRepository = itemPedidoRepository;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(LojaAppApplication.class, args);
@@ -46,19 +55,19 @@ public class LojaAppApplication implements CommandLineRunner {
         Categoria categoria1 = new Categoria("Informatica", null);
         Categoria categoria2 = new Categoria("Escritorio", null);
 
-        Produto p1 = new Produto(null, "Computador", 2000.);
-        Produto p2 = new Produto(null, "Impressora", 800.);
-        Produto p3 = new Produto(null, "Mouse", 80.);
+        Produto produto1 = new Produto(null, "Computador", 2000.);
+        Produto produto2 = new Produto(null, "Impressora", 800.);
+        Produto produto3 = new Produto(null, "Mouse", 80.);
 
-        categoria1.getProdutos().addAll(asList(p1, p2,p3));
-        categoria2.getProdutos().add(p2);
+        categoria1.getProdutos().addAll(asList(produto1, produto2,produto3));
+        categoria2.getProdutos().add(produto2);
 
-        p1.getCategorias().add(categoria1);
-        p2.getCategorias().addAll(asList(categoria1, categoria2));
-        p3.getCategorias().add(categoria1);
+        produto1.getCategorias().add(categoria1);
+        produto2.getCategorias().addAll(asList(categoria1, categoria2));
+        produto3.getCategorias().add(categoria1);
 
         categoriaRepository.saveAll(asList(categoria1, categoria2));
-        produtoRepository.saveAll(asList(p1, p2,p3));
+        produtoRepository.saveAll(asList(produto1, produto2,produto3));
 
         Estado estado1 = new Estado(null, "Minas Gerais");
         Estado estado2 = new Estado(null, "São Paulo");
@@ -102,6 +111,20 @@ public class LojaAppApplication implements CommandLineRunner {
 
         pedidoRepository.saveAll(asList(pedido1, pedido2));
         pagamentoRepository.saveAll(asList(pagamento1, pagamento2));
+
+        ItemPedido itemPedido1 = new ItemPedido(produto1, pedido1, 1, 0., 2000.);
+        ItemPedido itemPedido2 = new ItemPedido(produto3, pedido1, 2, 0., 80.);
+        ItemPedido itemPedido3 = new ItemPedido(produto2, pedido2, 1, 100., 800.);
+
+        produto1.getPedidos().add(itemPedido1);
+        produto2.getPedidos().add(itemPedido3);
+        produto3.getPedidos().add(itemPedido2);
+
+        pedido1.getItens().addAll(asList(itemPedido1, itemPedido2));
+        pedido2.getItens().add(itemPedido3);
+
+        itemPedidoRepository.saveAll(asList(itemPedido1, itemPedido2, itemPedido3));
+
 
     }
 }

@@ -20,18 +20,7 @@ public class PagamentoComBoleto extends Pagamento {
 
         super(id, estado, pedido);
         this.dataPagamento = dataPagamento;
-
-        if(dataVencimento.getDayOfWeek().getValue() == 6) {
-            this.dataVencimento = dataVencimento.plusDays(2);
-
-        } else if(dataVencimento.getDayOfWeek().getValue() == 7) {
-            this.dataVencimento = dataVencimento.plusDays(1);
-
-        } else {
-            this.dataVencimento = dataVencimento;
-        }
-
-
+        this.dataVencimento = alteraDataVencimentoSeFimDeSemana(dataVencimento);
     }
 
     public LocalDate getDataVencimento() {
@@ -50,5 +39,17 @@ public class PagamentoComBoleto extends Pagamento {
         this.dataPagamento = dataPagamento;
     }
 
+    private LocalDate alteraDataVencimentoSeFimDeSemana(LocalDate vencimento) {
+
+        if(vencimento.getDayOfWeek().getValue() < 6) {
+            return vencimento;
+
+        } else if(vencimento.getDayOfWeek().getValue() == 6) {
+            return vencimento.plusDays(2);
+
+        } else {
+            return  vencimento.plusDays(1);
+        }
+    }
 
 }
