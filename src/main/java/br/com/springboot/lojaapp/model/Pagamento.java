@@ -1,6 +1,7 @@
 package br.com.springboot.lojaapp.model;
 
 import br.com.springboot.lojaapp.model.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public abstract class Pagamento implements Serializable {
     @MapsId
     @OneToOne
     @JoinColumn(name = "pedido_id")
+    @JsonIgnore
     private Pedido pedido;
 
     public Pagamento() {

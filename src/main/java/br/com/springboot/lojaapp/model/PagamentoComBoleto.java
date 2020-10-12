@@ -1,6 +1,7 @@
 package br.com.springboot.lojaapp.model;
 
 import br.com.springboot.lojaapp.model.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
@@ -9,7 +10,9 @@ import java.time.LocalDate;
 public class PagamentoComBoleto extends Pagamento {
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataPagamento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataVencimento;
 
     public PagamentoComBoleto() {
