@@ -19,13 +19,13 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarPorId(@PathVariable Integer id){
+    public ResponseEntity<?> listarPorId(@PathVariable Integer id) {
         Categoria categoria = categoriaService.buscarPorId(id);
         return ResponseEntity.ok().body(categoria);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Categoria>> listarTodos(){
+    public ResponseEntity<List<Categoria>> listarTodos() {
         List<Categoria> categorias = categoriaService.buscarTodos();
 
         return ResponseEntity.ok().body(categorias);
@@ -33,7 +33,7 @@ public class CategoriaController {
 
 
     @PostMapping
-    public ResponseEntity<Categoria> inserirCategoria(@RequestBody Categoria categoria){
+    public ResponseEntity<Categoria> inserirCategoria(@RequestBody Categoria categoria) {
         Categoria categoriaInserida = categoriaService.salvarCategoria(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(categoriaInserida.getId()).toUri();
@@ -43,9 +43,17 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> atualizarCategoria(@PathVariable Integer id,
-                                                   @RequestBody Categoria categoria){
+                                                        @RequestBody Categoria categoria) {
         categoriaService.atualizarCategoria(categoria, id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletarCategoria(@PathVariable Integer id) {
+        categoriaService.deletarCategoria(id);
+
+        return ResponseEntity.ok("Categoria Deletada");
+
     }
 }

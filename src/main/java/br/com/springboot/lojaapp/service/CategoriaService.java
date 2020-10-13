@@ -11,9 +11,12 @@ import java.util.Optional;
 
 @Service
 public class CategoriaService {
-    
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+
+    private final CategoriaRepository categoriaRepository;
+
+    public CategoriaService(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
+    }
 
     public Categoria buscarPorId(Integer id) {
         Optional<Categoria> objeto = categoriaRepository.findById(id);
@@ -34,8 +37,11 @@ public class CategoriaService {
         categoria.setId(id);
         buscarPorId(id);
         return categoriaRepository.save(categoria);
-
     }
 
 
+    public void deletarCategoria(Integer id) {
+        buscarPorId(id);
+        categoriaRepository.deleteById(id);
+    }
 }
