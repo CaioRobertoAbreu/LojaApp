@@ -40,4 +40,12 @@ public class CategoriaController {
 
         return ResponseEntity.created(uri).body(categoriaInserida);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> atualizarCategoria(@PathVariable Integer id,
+                                                   @RequestBody Categoria categoria){
+        categoriaService.atualizarCategoria(categoria, id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

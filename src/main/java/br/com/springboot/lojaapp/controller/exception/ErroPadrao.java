@@ -2,18 +2,19 @@ package br.com.springboot.lojaapp.controller.exception;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ErroPadrao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer status;
-    private LocalTime momento;
+    private String momento;
     private Long timeStamp;
     private String mensagem;
 
     public ErroPadrao(Integer status, LocalTime momento, Long timeStamp, String mensagem) {
         this.status = status;
-        this.momento = momento;
+        this.momento = momento.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.timeStamp = timeStamp;
         this.mensagem = mensagem;
     }
@@ -26,7 +27,7 @@ public class ErroPadrao implements Serializable {
         return status;
     }
 
-    public LocalTime getMomento() {
+    public String getMomento() {
         return momento;
     }
 
