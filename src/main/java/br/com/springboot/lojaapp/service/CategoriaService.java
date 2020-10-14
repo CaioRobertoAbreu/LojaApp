@@ -2,8 +2,10 @@ package br.com.springboot.lojaapp.service;
 
 import br.com.springboot.lojaapp.model.Categoria;
 import br.com.springboot.lojaapp.repository.CategoriaRepository;
+import br.com.springboot.lojaapp.service.exception.DataIntegrityException;
 import br.com.springboot.lojaapp.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +44,10 @@ public class CategoriaService {
 
     public void deletarCategoria(Integer id) {
         buscarPorId(id);
-        categoriaRepository.deleteById(id);
+        try{
+            categoriaRepository.deleteById(id);
+        } catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityException("Não é possível excluir categoria que contém produtos");
+        }
     }
 }

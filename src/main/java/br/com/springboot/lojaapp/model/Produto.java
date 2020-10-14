@@ -18,7 +18,6 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "id.produto")
     @JsonIgnore
     private Set<ItemPedido> pedidos = new HashSet<>();
-
     @JsonIgnore
     @JoinTable(name = "produto_categoria",
         joinColumns = @JoinColumn(name = "produto_id"),

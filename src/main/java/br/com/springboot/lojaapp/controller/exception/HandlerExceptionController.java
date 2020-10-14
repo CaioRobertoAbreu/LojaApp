@@ -1,5 +1,6 @@
 package br.com.springboot.lojaapp.controller.exception;
 
+import br.com.springboot.lojaapp.service.exception.DataIntegrityException;
 import br.com.springboot.lojaapp.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,14 @@ public class HandlerExceptionController {
                 System.currentTimeMillis(), e.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<ErroPadrao> dataIntegretyException(DataIntegrityException exception,
+                                                             HttpServletRequest http) {
+        ErroPadrao erro = new ErroPadrao(HttpStatus.BAD_REQUEST.value(), LocalTime.now(),
+                System.currentTimeMillis(), exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 }
