@@ -1,5 +1,6 @@
 package br.com.springboot.lojaapp.service;
 
+import br.com.springboot.lojaapp.dto.CategoriaDto;
 import br.com.springboot.lojaapp.model.Categoria;
 import br.com.springboot.lojaapp.repository.CategoriaRepository;
 import br.com.springboot.lojaapp.service.exception.DataIntegrityException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriaService {
@@ -26,8 +28,9 @@ public class CategoriaService {
                 id + ". Tipo: " + Categoria.class.getName()));
     }
 
-    public List<Categoria> buscarTodos(){
-        return categoriaRepository.findAll();
+    public List<CategoriaDto> buscarTodos(){
+        List<Categoria> categorias = categoriaRepository.findAll();
+        return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
     }
 
     public Categoria salvarCategoria(Categoria categoria){

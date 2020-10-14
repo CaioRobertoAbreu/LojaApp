@@ -1,5 +1,6 @@
 package br.com.springboot.lojaapp.controller;
 
+import br.com.springboot.lojaapp.dto.CategoriaDto;
 import br.com.springboot.lojaapp.model.Categoria;
 import br.com.springboot.lojaapp.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> listarPorId(@PathVariable Integer id) {
         Categoria categoria = categoriaService.buscarPorId(id);
         return ResponseEntity.ok().body(categoria);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Categoria>> listarTodos() {
-        List<Categoria> categorias = categoriaService.buscarTodos();
+    public ResponseEntity<List<CategoriaDto>> listarTodos() {
+        List<CategoriaDto> categorias = categoriaService.buscarTodos();
 
         return ResponseEntity.ok().body(categorias);
     }
