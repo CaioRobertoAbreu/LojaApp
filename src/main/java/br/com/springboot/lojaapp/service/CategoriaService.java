@@ -45,15 +45,15 @@ public class CategoriaService {
        return categoriaRepository.findAll(paginacao);
    }
 
-    public Categoria salvarCategoria(Categoria categoria){
+    public Categoria salvarCategoria(CategoriaDto categoria){
         categoria.setId(null);
-        return categoriaRepository.save(categoria);
+        return categoriaRepository.save(toCategoria(categoria));
     }
 
-    public Categoria atualizarCategoria(Categoria categoria, Integer id){
-        categoria.setId(id);
+    public Categoria atualizarCategoria(CategoriaDto categoriaDto, Integer id){
+        categoriaDto.setId(id);
         buscarPorId(id);
-        return categoriaRepository.save(categoria);
+        return categoriaRepository.save(toCategoria(categoriaDto));
     }
 
 
@@ -64,5 +64,9 @@ public class CategoriaService {
         } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityException("Não é possível excluir categoria que contém produtos");
         }
+    }
+
+    private Categoria toCategoria (CategoriaDto categoriaDto){
+        return new Categoria(categoriaDto.getNome(), categoriaDto.getId());
     }
 }
