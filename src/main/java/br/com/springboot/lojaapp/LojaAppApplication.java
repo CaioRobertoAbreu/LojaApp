@@ -54,6 +54,15 @@ public class LojaAppApplication implements CommandLineRunner {
         //Salvando as categorias no bd h2
         Categoria categoria1 = new Categoria("Informatica", null);
         Categoria categoria2 = new Categoria("Escritorio", null);
+        Categoria categoria3 = new Categoria("Cama, mesa e banho", null);
+        Categoria categoria4 = new Categoria("Telefone e celulares", null);
+        Categoria categoria5 = new Categoria("Eletrodomesticos", null);
+        Categoria categoria6 = new Categoria("Móveis", null);
+        Categoria categoria7 = new Categoria("Automotivo", null);
+        Categoria categoria8 = new Categoria("Bebe e criança", null);
+        Categoria categoria9 = new Categoria("Esportes", null);
+        Categoria categoria10 = new Categoria("Decoracao", null);
+
 
         Produto produto1 = new Produto(null, "Computador", 2000.);
         Produto produto2 = new Produto(null, "Impressora", 800.);
@@ -66,7 +75,9 @@ public class LojaAppApplication implements CommandLineRunner {
         produto2.getCategorias().addAll(asList(categoria1, categoria2));
         produto3.getCategorias().add(categoria1);
 
-        categoriaRepository.saveAll(asList(categoria1, categoria2));
+        categoriaRepository.saveAll(asList(categoria1, categoria2, categoria3, categoria4, categoria5,
+                categoria6, categoria7, categoria8, categoria9, categoria10));
+
         produtoRepository.saveAll(asList(produto1, produto2,produto3));
 
         Estado estado1 = new Estado(null, "Minas Gerais");

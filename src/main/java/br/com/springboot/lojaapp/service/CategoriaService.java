@@ -5,13 +5,17 @@ import br.com.springboot.lojaapp.model.Categoria;
 import br.com.springboot.lojaapp.repository.CategoriaRepository;
 import br.com.springboot.lojaapp.service.exception.DataIntegrityException;
 import br.com.springboot.lojaapp.service.exception.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.data.domain.Sort.*;
 
 @Service
 public class CategoriaService {
@@ -30,8 +34,16 @@ public class CategoriaService {
 
     public List<CategoriaDto> buscarTodos(){
         List<Categoria> categorias = categoriaRepository.findAll();
+
         return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
     }
+
+   public Page<Categoria> buscarTodosComPaginacao(Integer pagina, Integer elementosPorPagina, String direcao,
+                                      String odenarPor) {
+       PageRequest paginacao = PageRequest.of(pagina, elementosPorPagina, Direction.valueOf(direcao), odenarPor);
+
+       return categoriaRepository.findAll(paginacao);
+   }
 
     public Categoria salvarCategoria(Categoria categoria){
         categoria.setId(null);
