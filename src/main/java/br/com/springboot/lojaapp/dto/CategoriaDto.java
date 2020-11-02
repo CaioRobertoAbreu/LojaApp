@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class CategoriaDto implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    
     private Integer id;
     @NotEmpty(message = "Preenchimento obrigatório")
     @Length(min = 5, max = 80,

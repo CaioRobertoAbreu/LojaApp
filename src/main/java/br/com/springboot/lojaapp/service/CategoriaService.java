@@ -38,11 +38,13 @@ public class CategoriaService {
         return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
     }
 
-   public Page<Categoria> buscarTodosComPaginacao(Integer pagina, Integer elementosPorPagina, String direcao,
+   public Page<CategoriaDto> buscarTodosComPaginacao(Integer pagina, Integer elementosPorPagina, String direcao,
                                       String odenarPor) {
        PageRequest paginacao = PageRequest.of(pagina, elementosPorPagina, Direction.valueOf(direcao), odenarPor);
 
-       return categoriaRepository.findAll(paginacao);
+       Page<Categoria> categorias = categoriaRepository.findAll(paginacao);
+
+       return categorias.map(CategoriaDto::new);
    }
 
     public Categoria salvarCategoria(CategoriaDto categoria){

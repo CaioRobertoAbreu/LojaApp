@@ -65,11 +65,9 @@ public class CategoriaController {
             @RequestParam(defaultValue = "ASC") String direcao,
             @RequestParam(defaultValue = "nome") String ordenarPor) {
 
-        Page<Categoria> categorias = categoriaService.buscarTodosComPaginacao(pagina, elementosPorPagina,
+        Page<CategoriaDto> categorias = categoriaService.buscarTodosComPaginacao(pagina, elementosPorPagina,
                 direcao, ordenarPor);
 
-        Page<CategoriaDto> categoriaDtos = categorias.map(CategoriaDto::new);
-
-        return ResponseEntity.ok(categoriaDtos);
+        return ResponseEntity.ok(categorias);
     }
 }
