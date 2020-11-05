@@ -52,10 +52,15 @@ public class CategoriaService {
         return categoriaRepository.save(toCategoria(categoria));
     }
 
-    public Categoria atualizarCategoria(CategoriaDto categoriaDto, Integer id){
+    public void atualizarCategoria(CategoriaDto categoriaDto, Integer id){
         categoriaDto.setId(id);
-        buscarPorId(id);
-        return categoriaRepository.save(toCategoria(categoriaDto));
+        Categoria categoria = buscarPorId(categoriaDto.getId());
+        atualizaDadosCategoria(categoria, categoriaDto);
+        categoriaRepository.save(categoria);
+    }
+
+    private void atualizaDadosCategoria(Categoria categoria, CategoriaDto categoriaDto) {
+        categoria.setNome(categoriaDto.getNome());
     }
 
 
