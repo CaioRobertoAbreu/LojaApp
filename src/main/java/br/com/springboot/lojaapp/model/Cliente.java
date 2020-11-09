@@ -75,7 +75,11 @@ public class Cliente implements Serializable {
     }
 
     public void setTipoCliente(TipoCliente tipoCliente) {
-        this.tipoCliente = tipoCliente.getCodigo();
+        if(tipoCliente != null) {
+            this.tipoCliente = tipoCliente.getCodigo();
+        } else {
+            this.tipoCliente = null;
+        }
     }
 
     public List<Endereco> getEnderecos() {

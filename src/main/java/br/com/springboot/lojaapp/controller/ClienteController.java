@@ -1,14 +1,18 @@
 package br.com.springboot.lojaapp.controller;
 
 import br.com.springboot.lojaapp.dto.ClienteDto;
+import br.com.springboot.lojaapp.dto.ClienteNewDto;
 import br.com.springboot.lojaapp.model.Cliente;
 import br.com.springboot.lojaapp.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -43,6 +47,18 @@ public class ClienteController {
                 ordenarPor);
 
         return ResponseEntity.ok().body(clientes);
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> inserirCliente(@RequestBody ClienteNewDto clienteNewDto) {
+        Cliente cliente = clienteService.salvarCliente(clienteNewDto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(cliente.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(cliente);
+
+
     }
 
     @PutMapping("/{id}")
