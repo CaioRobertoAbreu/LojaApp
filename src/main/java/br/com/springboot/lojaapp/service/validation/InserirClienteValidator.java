@@ -13,7 +13,7 @@ import java.util.List;
 
 public class InserirClienteValidator implements ConstraintValidator<InserirCliente, ClienteNewDto> {
 
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
     public InserirClienteValidator(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
