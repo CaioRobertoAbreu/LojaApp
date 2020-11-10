@@ -50,7 +50,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> inserirCliente(@RequestBody ClienteNewDto clienteNewDto) {
+    public ResponseEntity<Cliente> inserirCliente(@Valid @RequestBody ClienteNewDto clienteNewDto) {
         Cliente cliente = clienteService.salvarCliente(clienteNewDto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")

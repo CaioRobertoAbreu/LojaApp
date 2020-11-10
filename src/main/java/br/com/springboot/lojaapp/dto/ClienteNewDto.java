@@ -1,13 +1,26 @@
 package br.com.springboot.lojaapp.dto;
 
+import br.com.springboot.lojaapp.service.validation.InserirCliente;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+@InserirCliente
 public class ClienteNewDto implements Serializable {
     private static final long serialVersionUID = -1L;
 
+    @NotEmpty(message = "Campo Obrigatorio")
+    @Size(min = 5, max = 50)
     private String nome;
+    @NotEmpty(message = "Campo Obrigatorio")
+    @Email(message = "e-mail inválido")
     private String email;
+    @NotEmpty(message = "preenchimento obrigatório")
     private String cpf_Cnpj;
+    @NotNull(message = "campo obrigatório")
     private Integer tipoCliente;
 
     private String logradouro;
@@ -15,7 +28,7 @@ public class ClienteNewDto implements Serializable {
     private String complemento;
     private String bairro;
     private String cep;
-
+    @NotEmpty(message = "campo obrigatorio")
     private String telefone1;
     private String telefone2;
     private String telefone3;

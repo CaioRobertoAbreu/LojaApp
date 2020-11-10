@@ -4,17 +4,17 @@ import br.com.springboot.lojaapp.model.Cliente;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class ClienteDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    @NotBlank(message = "campo obrigatorio")
+    @NotEmpty(message = "campo obrigatorio")
     @Length(min = 5, max = 120)
     private String nome;
-    @NotBlank(message = "campo obrigatorio")
+    @NotEmpty(message = "campo obrigatorio")
     @Email(message = "e-mail invalido")
     private String email;
 
