@@ -44,7 +44,7 @@ public class InserirClienteValidator implements ConstraintValidator<InserirClien
         Cliente clienteEmail = clienteRepository.findByEmail(cliente.getEmail());
 
         if(clienteEmail != null){
-            erros.add(new CampoComErro("email", "E-mail já adicionado"));
+            erros.add(new CampoComErro("email", "E-mail já existente"));
         }
 
         for (CampoComErro e : erros) {
