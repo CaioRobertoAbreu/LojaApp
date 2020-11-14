@@ -84,6 +84,10 @@ public class Pedido implements Serializable {
         return itens;
     }
 
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     public Double getValorTotal() {
         Double soma = 0.;
         for(ItemPedido item : itens) {
