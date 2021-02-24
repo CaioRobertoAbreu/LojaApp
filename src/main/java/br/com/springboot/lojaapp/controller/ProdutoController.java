@@ -36,6 +36,7 @@ public class ProdutoController {
                 pagina, elementosPorPagina, ordem, direcao);
 
         return ResponseEntity.ok().body(produtoDtoPage);
-
     }
+
+
 }
