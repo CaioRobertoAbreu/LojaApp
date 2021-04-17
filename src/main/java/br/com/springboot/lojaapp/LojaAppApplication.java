@@ -7,6 +7,7 @@ import br.com.springboot.lojaapp.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -113,8 +114,8 @@ public class LojaAppApplication implements CommandLineRunner {
         estadoRepository.saveAll(asList(estado1, estado2));
         cidadeRepository.saveAll(asList(cidade1, cidade2, cidade3));
 
-        Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678911",
-                TipoCliente.PESSOA_FISICA);
+        Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com",
+                new BCryptPasswordEncoder().encode("SenhaSecreta"), "12345678911", TipoCliente.PESSOA_FISICA);
         cliente1.getTelefones().addAll(asList("1354157199", "13654237624"));
 
         Endereco endereco1 = new Endereco(null, "Rua Flores", 300, "apto 203",

@@ -19,6 +19,8 @@ public class ClienteNewDto implements Serializable {
     @Email(message = "e-mail inválido")
     private String email;
     @NotEmpty(message = "preenchimento obrigatório")
+    private String senha;
+    @NotEmpty(message = "preenchimento obrigatório")
     private String cpf_Cnpj;
     @NotNull(message = "campo obrigatório")
     private Integer tipoCliente;
@@ -71,6 +73,10 @@ public class ClienteNewDto implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public String getCpf_Cnpj() {

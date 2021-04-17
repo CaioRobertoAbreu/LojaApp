@@ -16,6 +16,8 @@ public class Cliente implements Serializable {
     private Integer id;
     private String nome;
     private String email;
+    @JsonIgnore
+    private String senha;
     @Column(unique = true)
     private String cpf_Cnpj;
     private Integer tipoCliente;
@@ -31,10 +33,11 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome, String email, String cpf_Cnpj, TipoCliente tipoCliente) {
+    public Cliente(Integer id, String nome, String email, String senha, String cpf_Cnpj, TipoCliente tipoCliente) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.cpf_Cnpj = cpf_Cnpj;
         this.tipoCliente = tipoCliente.getCodigo();
     }
@@ -61,6 +64,14 @@ public class Cliente implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getCpf_Cnpj() {
